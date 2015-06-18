@@ -100,6 +100,9 @@ func (c *UpgradeConn) Recv() ([]byte, []*os.File, error) {
 	}
 
 	fds, err := syscall.ParseUnixRights(&scms[0])
+	if err != nil {
+		return nil, nil, err
+	}
 
 	files := make([]*os.File, len(fds))
 	for i, fd := range fds {
