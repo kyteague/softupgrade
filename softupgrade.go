@@ -112,6 +112,10 @@ func (c *UpgradeConn) Recv() ([]byte, []*os.File, error) {
 	return data, files, nil
 }
 
+func (c *UpgradeConn) Close() error {
+	return c.c.Close()
+}
+
 func makeAddr(pid int, name string) (*net.UnixAddr, error) {
 	addr := fmt.Sprintf("%s/softupgrade_%d_%s", PathPrefix, pid, name)
 	return net.ResolveUnixAddr("unix", addr)
